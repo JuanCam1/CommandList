@@ -50,7 +50,7 @@ const CommandUpdate: FC<Props> = ({ command, onEdit }) => {
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button size="sm" variant="secondary" className="cursor-pointer">
+        <Button size="sm" variant="outline" className="cursor-pointer">
           <Pencil className="h-4 w-4" />
         </Button>
       </AlertDialogTrigger>

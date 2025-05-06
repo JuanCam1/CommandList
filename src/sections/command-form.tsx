@@ -24,7 +24,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import type { CommandI } from "types/global";
 import { typeData } from "@/data/type-data";
 import { toast } from "sonner";
 import { useRouter } from "@tanstack/react-router";
@@ -68,9 +67,9 @@ const CommandForm: FC<Props> = ({ setIsOpen }) => {
   };
 
   return (
-    <Card className=" border-accent">
+    <Card className="border-0">
       <form onSubmit={handleSubmit}>
-        <CardContent className="space-y-4">
+        <CardContent className="flex flex-col gap-5">
           <div className="space-y-2">
             <Label htmlFor="name">Título</Label>
             <Input
@@ -78,7 +77,7 @@ const CommandForm: FC<Props> = ({ setIsOpen }) => {
               name="name"
               value={commandNew.name}
               onChange={handleChange}
-              placeholder="Ej: Actualizar paquetes en Ubuntu"
+              className="dark:bg-zinc-950"
               required
             />
           </div>
@@ -90,7 +89,7 @@ const CommandForm: FC<Props> = ({ setIsOpen }) => {
               name="description"
               value={commandNew.description}
               onChange={handleChange}
-              placeholder="Describe para qué sirve este comando..."
+              className="dark:bg-zinc-950"
               rows={2}
             />
           </div>
@@ -102,9 +101,8 @@ const CommandForm: FC<Props> = ({ setIsOpen }) => {
               name="command"
               value={commandNew.command}
               onChange={handleChange}
-              placeholder="Ej: sudo apt update && sudo apt upgrade -y"
               required
-              className="font-mono"
+              className="font-mono dark:bg-zinc-950"
               rows={3}
             />
           </div>
@@ -117,12 +115,16 @@ const CommandForm: FC<Props> = ({ setIsOpen }) => {
                 value={commandNew.type}
                 onValueChange={handleChangeType}
               >
-                <SelectTrigger className="flex-1">
+                <SelectTrigger className="flex-1 dark:bg-zinc-950 dark:border-neutral-400 cursor-pointer">
                   <SelectValue placeholder="Selecciona una categoría" />
                 </SelectTrigger>
-                <SelectContent>
+                <SelectContent className="dark:bg-zinc-950">
                   {typeData.map((type) => (
-                    <SelectItem key={type.id} value={type.value}>
+                    <SelectItem
+                      key={type.id}
+                      value={type.value}
+                      className="text-white"
+                    >
                       {type.name}
                     </SelectItem>
                   ))}
@@ -131,8 +133,10 @@ const CommandForm: FC<Props> = ({ setIsOpen }) => {
             </div>
           </div>
         </CardContent>
-        <CardFooter className="flex justify-center mt-3">
-          <Button type="submit">Guardar</Button>
+        <CardFooter className="flex justify-center mt-6">
+          <Button variant="outline" type="submit">
+            Guardar
+          </Button>
         </CardFooter>
       </form>
     </Card>

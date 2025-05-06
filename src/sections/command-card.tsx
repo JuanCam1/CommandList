@@ -28,17 +28,17 @@ const CommandCard: FC<Props> = ({ command, onEdit, onDelete }) => {
   };
 
   return (
-    <Card className="dark:bg-neutral-950/40 border-1 dark:border-neutral-4000">
+    <Card className="dark:bg-neutral-950/40 border-1 border-neutral-400">
       <CardHeader>
         <div>
           <CardTitle className="capitalize">{command.name}</CardTitle>
-          <CardDescription className="mt-2 dark:text-neutral-500 capitalize">
+          <CardDescription className="mt-2 dark:text-neutral-500 capitalize text-neutral-700">
             {command.description}
           </CardDescription>
         </div>
       </CardHeader>
       <CardContent>
-        <pre className="bg-zinc-950 p-2 rounded-md overflow-x-auto text-sm scrollbar-thin scrollbar-thumb-zinc-700 scrollbar-track-zinc-900">
+        <pre className="dark:bg-zinc-950 bg-zinc-200 p-2 rounded-md overflow-x-auto text-sm scrollbar-thin dark:scrollbar-thumb-zinc-700 dark:scrollbar-track-zinc-900">
           <code>{command.command}</code>
         </pre>
       </CardContent>

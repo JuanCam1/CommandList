@@ -11,11 +11,9 @@ interface Props {
 const ModalCreate: FC<Props> = ({ open, setIsOpen }) => {
   return (
     <Dialog open={open} onOpenChange={setIsOpen}>
-      <DialogContent className="sm:max-w-[600px] bg-background border-accent">
+      <DialogContent className="sm:max-w-[600px] border-neutral-400 bg-white dark:bg-zinc-900 dark:text-white">
         <DialogHeader>
-          <DialogTitle className="text-center dark:text-white">
-            Agregar Comando
-          </DialogTitle>
+          <DialogTitle className="text-center ">Agregar Comando</DialogTitle>
         </DialogHeader>
         <CommandForm setIsOpen={setIsOpen} />
       </DialogContent>
