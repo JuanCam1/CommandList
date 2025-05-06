@@ -14,5 +14,10 @@ export const typeData = [
     id: 3,
     value: "template",
     name:"Template"
+  },
+  {
+    id: 4,
+    value: "project",
+    name:"Proyecto"
   }
 ];

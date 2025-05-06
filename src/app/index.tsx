@@ -22,7 +22,7 @@ export const Route = createFileRoute("/")({
 
 const categories = [
   {
-    id: 4,
+    id: 5,
     name: "Todos",
     value: "todos",
   },
@@ -42,30 +42,32 @@ function Index() {
   } = useCommand(commands);
 
   return (
-    <div className="dark:text-white flex flex-col bg-white dark:bg-zinc-900 px-5 rounded-md w-full min-h-screen lg:w-[90%] pt-3">
-      <main className="relative container mx-auto py-6 px-4 w-full">
-        <div className="absolute top-0 right-0">
-          <ModeToggle />
-        </div>
-        <h1 className="text-3xl font-bold mb-6 text-center">
-          Lista de Comandos
-        </h1>
-        <div className="flex flex-col md:flex-row justify-between items-center gap-4 mb-6">
-          <Search searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
-          <Button
-            onClick={() => {
-              setIsFormOpen(true);
-            }}
-            variant="secondary"
-            className="w-full md:w-auto cursor-pointer "
-          >
-            <PlusCircle className="mr-2 h-4 w-4" />
-            Nuevo Comando
-          </Button>
+    <div className="dark:text-white flex flex-col bg-white dark:bg-zinc-900 px-5 rounded-md w-full min-h-screen lg:w-[90%]  ">
+      <main className="relative container mx-auto py-6 px-4 w-full h-screen">
+        <div className="h-[10%] w-full">
+          <div className="absolute top-0 right-0">
+            <ModeToggle />
+          </div>
+          <h1 className="text-3xl font-bold mb-6 text-center">
+            Lista de Comandos
+          </h1>
+          <div className="flex flex-col md:flex-row justify-between items-center gap-4 mb-6">
+            <Search searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+            <Button
+              onClick={() => {
+                setIsFormOpen(true);
+              }}
+              variant="secondary"
+              className="w-full md:w-auto cursor-pointer "
+            >
+              <PlusCircle className="mr-2 h-4 w-4" />
+              Nuevo Comando
+            </Button>
+          </div>
         </div>
 
-        <Tabs defaultValue="todos" className="mb-6 w-full ">
-          <div className="w-full flex justify-end mb-6">
+        <Tabs defaultValue="todos" className="mb-6 w-full h-[90%] ">
+          <div className="w-full flex justify-end mb-6 mt-4">
             <TabsList className="w-[400px] overflow-x-auto">
               {categories.map((category) => (
                 <TabsTrigger
@@ -78,14 +80,20 @@ function Index() {
               ))}
             </TabsList>
           </div>
-          <TabsContent value="todos" className="w-full">
+          <TabsContent
+            value="todos"
+            className="w-full h-full scrollbar scrollbar-thumb-zinc-900 scrollbar-track-zinc-800 overflow-y-scroll px-2 pb-3"
+          >
             <CommandList
               commands={filteredCommands}
               onEdit={handleEditCommand}
               onDelete={handleDeleteCommand}
             />
           </TabsContent>
-          <TabsContent value="template">
+          <TabsContent
+            value="template"
+            className="w-full h-full scrollbar scrollbar-thumb-zinc-900 scrollbar-track-zinc-800 overflow-y-scroll px-2 pb-3"
+          >
             <CommandList
               commands={filteredCommands.filter(
                 (cmd) => cmd.type === "template",
@@ -94,17 +102,35 @@ function Index() {
               onDelete={handleDeleteCommand}
             />
           </TabsContent>
-          <TabsContent value="so">
+          <TabsContent
+            value="so"
+            className="w-full h-full scrollbar scrollbar-thumb-zinc-900 scrollbar-track-zinc-800 overflow-y-scroll px-2 pb-3"
+          >
             <CommandList
               commands={filteredCommands.filter((cmd) => cmd.type === "so")}
               onEdit={handleEditCommand}
               onDelete={handleDeleteCommand}
             />
           </TabsContent>
-          <TabsContent value="command">
+          <TabsContent
+            value="command"
+            className="w-full h-full scrollbar scrollbar-thumb-zinc-900 scrollbar-track-zinc-800 overflow-y-scroll px-2 pb-3"
+          >
             <CommandList
               commands={filteredCommands.filter(
                 (cmd) => cmd.type === "command",
+              )}
+              onEdit={handleEditCommand}
+              onDelete={handleDeleteCommand}
+            />
+          </TabsContent>
+          <TabsContent
+            value="project"
+            className="w-full h-full scrollbar scrollbar-thumb-zinc-900 scrollbar-track-zinc-800 overflow-y-scroll px-2 pb-3"
+          >
+            <CommandList
+              commands={filteredCommands.filter(
+                (cmd) => cmd.type === "project",
               )}
               onEdit={handleEditCommand}
               onDelete={handleDeleteCommand}
