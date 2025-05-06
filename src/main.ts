@@ -1,11 +1,14 @@
-import { app, BrowserWindow, Menu } from "electron";
+import { app, BrowserWindow, ipcMain, Menu } from "electron";
 import { shell } from "electron";
 import path from "node:path";
 import fs from "node:fs";
 import { platform } from "node:process";
 import { template } from "./api/libs";
+import type { CommandI } from "types/global";
+import { commandsData } from "./api/commands-data";
 
 let mainWindow: BrowserWindow;
+const dataFilePath = path.join(app.getPath("userData"), "commands.json");
 
 const createWindow = () => {
   try {
@@ -42,8 +45,14 @@ const createWindow = () => {
     mainWindow.webContents.openDevTools({
       mode: "detach",
     });
+
+    if(!fs.existsSync(dataFilePath)) {
+      fs.writeFileSync(dataFilePath, JSON.stringify(commandsData, null, 2), "utf-8");
+      console.log('Archivo data.json creado con datos por defecto');
+    }
   } catch (error) {
-    fs.writeFileSync("/tmp/electron-app-error.log", String(error));
+    console.log('error', error);
+    // fs.writeFileSync("/tmp/electron-app-error.log", String(error));
   }
 };
 
@@ -59,4 +68,37 @@ app.on("activate", () => {
   if (BrowserWindow.getAllWindows().length === 0) {
     createWindow();
   }
+});
+
+const readData = ():CommandI[] => {
+  if (!fs.existsSync(dataFilePath)) return [];
+  const content = fs.readFileSync(dataFilePath, "utf-8");
+  console.log(content);
+  return JSON.parse(content);
+};
+
+const writeData = (data: CommandI[]) => {
+  fs.writeFileSync(dataFilePath, JSON.stringify(data, null, 2), "utf-8");
+};
+
+ipcMain.handle("read-data", () => readData());
+
+ipcMain.handle("create-data", (_: unknown, item: Omit<CommandI, "id">) => {
+  const itemCreated = { ...item, id: Date.now() };
+  const data = readData();
+  data.push(itemCreated);
+  writeData(data);
+});
+
+ipcMain.handle("update-data", (_: unknown, updatedItem:CommandI) => {
+  let data = readData();
+  data = data.map((item: CommandI) =>
+    item.id === updatedItem.id ? updatedItem : item,
+  );
+  writeData(data);
+});
+
+ipcMain.handle("delete-data", (_: unknown, id:number) => {
+  const data = readData().filter((item) => item.id !== id);
+  writeData(data);
 });
