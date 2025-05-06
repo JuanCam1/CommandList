@@ -8,29 +8,8 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Copy, Check, Pencil, Trash2 } from "lucide-react";
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
+import { Copy, Check } from "lucide-react";
 import type { CommandI } from "types/global";
-import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import CommandDelete from "./command-delete";
 import CommandUpdate from "./command-update";
 
@@ -49,17 +28,17 @@ const CommandCard: FC<Props> = ({ command, onEdit, onDelete }) => {
   };
 
   return (
-    <Card className="bg-background border-accent">
+    <Card className="dark:bg-neutral-950/40 border-1 dark:border-neutral-4000">
       <CardHeader>
         <div>
           <CardTitle className="capitalize">{command.name}</CardTitle>
-          <CardDescription className="mt-2">
+          <CardDescription className="mt-2 dark:text-neutral-500 capitalize">
             {command.description}
           </CardDescription>
         </div>
       </CardHeader>
       <CardContent>
-        <pre className="bg-muted p-2 rounded-md overflow-x-auto text-sm">
+        <pre className="bg-zinc-950 p-2 rounded-md overflow-x-auto text-sm scrollbar-thin scrollbar-thumb-zinc-700 scrollbar-track-zinc-900">
           <code>{command.command}</code>
         </pre>
       </CardContent>
@@ -70,7 +49,7 @@ const CommandCard: FC<Props> = ({ command, onEdit, onDelete }) => {
         </div>
         <Button
           className="cursor-pointer"
-          variant="destructive"
+          variant="outline"
           size="sm"
           onClick={handleCopy}
         >
