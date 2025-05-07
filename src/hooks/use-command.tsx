@@ -28,19 +28,9 @@ const useCommand = (commands: CommandI[]) => {
     return matchesSearch;
   });
 
-  const handleEditCommand = (command: CommandI) => {
+  const handleDeleteCommand = async (id: number) => {
     try {
-      window.api.updateData(command);
-      console.log("updated");
-    } catch (error) {
-      console.log(error);
-      return "error";
-    }
-  };
-
-  const handleDeleteCommand = (id: number) => {
-    try {
-      window.api.deleteData(id);
+      await window.api.deleteData(id);
       toast.success("Comando eliminado correctamente");
       router.invalidate();
     } catch (error) {
@@ -56,7 +46,6 @@ const useCommand = (commands: CommandI[]) => {
     debouncedSearchQuery,
     setDebouncedSearchQuery,
     filteredCommands,
-    handleEditCommand,
     handleDeleteCommand,
   };
 };

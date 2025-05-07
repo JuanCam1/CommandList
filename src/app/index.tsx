@@ -34,7 +34,6 @@ function Index() {
   const {
     setIsFormOpen,
     setSearchQuery,
-    handleEditCommand,
     handleDeleteCommand,
     filteredCommands,
     searchQuery,
@@ -45,7 +44,7 @@ function Index() {
     <div className="dark:text-white flex flex-col bg-white dark:bg-zinc-900 px-5 rounded-md w-full min-h-screen lg:w-[90%]  ">
       <main className="relative container mx-auto py-6 px-4 w-full h-screen">
         <div className="h-[10%] w-full">
-          <div className="absolute top-0 right-0">
+          <div className="absolute top-0 right-0 pt-2 pr-4">
             <ModeToggle />
           </div>
           <h1 className="text-3xl font-bold mb-6 text-center">
@@ -57,7 +56,7 @@ function Index() {
               onClick={() => {
                 setIsFormOpen(true);
               }}
-              variant="secondary"
+              variant="outline"
               className="w-full md:w-auto cursor-pointer "
             >
               <PlusCircle className="mr-2 h-4 w-4" />
@@ -82,57 +81,52 @@ function Index() {
           </div>
           <TabsContent
             value="todos"
-            className="w-full h-full scrollbar scrollbar-thumb-zinc-900 scrollbar-track-zinc-800 overflow-y-scroll px-2 pb-3"
+            className="w-full h-full scrollbar dark:scrollbar-thumb-zinc-900 dark:scrollbar-track-zinc-800 overflow-y-scroll px-2 pb-3 scrollbar-thumb-zinc-400 scrollbar-track-zinc-300"
           >
             <CommandList
               commands={filteredCommands}
-              onEdit={handleEditCommand}
               onDelete={handleDeleteCommand}
             />
           </TabsContent>
           <TabsContent
             value="template"
-            className="w-full h-full scrollbar scrollbar-thumb-zinc-900 scrollbar-track-zinc-800 overflow-y-scroll px-2 pb-3"
+            className="w-full h-full scrollbar dark:scrollbar-thumb-zinc-900 dark:scrollbar-track-zinc-800 overflow-y-scroll px-2 pb-3 scrollbar-thumb-zinc-400 scrollbar-track-zinc-300"
           >
             <CommandList
               commands={filteredCommands.filter(
                 (cmd) => cmd.type === "template",
               )}
-              onEdit={handleEditCommand}
               onDelete={handleDeleteCommand}
             />
           </TabsContent>
           <TabsContent
             value="so"
-            className="w-full h-full scrollbar scrollbar-thumb-zinc-900 scrollbar-track-zinc-800 overflow-y-scroll px-2 pb-3"
+            className="w-full h-full scrollbar dark:scrollbar-thumb-zinc-900 dark:scrollbar-track-zinc-800 overflow-y-scroll px-2 pb-3 scrollbar-thumb-zinc-400 scrollbar-track-zinc-300"
           >
             <CommandList
               commands={filteredCommands.filter((cmd) => cmd.type === "so")}
-              onEdit={handleEditCommand}
               onDelete={handleDeleteCommand}
             />
           </TabsContent>
           <TabsContent
             value="command"
-            className="w-full h-full scrollbar scrollbar-thumb-zinc-900 scrollbar-track-zinc-800 overflow-y-scroll px-2 pb-3"
+            className="w-full h-full scrollbar dark:scrollbar-thumb-zinc-900 dark:scrollbar-track-zinc-800 overflow-y-scroll px-2 pb-3 scrollbar-thumb-zinc-400 scrollbar-track-zinc-300"
           >
             <CommandList
               commands={filteredCommands.filter(
                 (cmd) => cmd.type === "command",
               )}
-              onEdit={handleEditCommand}
               onDelete={handleDeleteCommand}
             />
           </TabsContent>
           <TabsContent
             value="project"
-            className="w-full h-full scrollbar scrollbar-thumb-zinc-900 scrollbar-track-zinc-800 overflow-y-scroll px-2 pb-3"
+            className="w-full h-full scrollbar dark:scrollbar-thumb-zinc-900 dark:scrollbar-track-zinc-800 overflow-y-scroll px-2 pb-3 scrollbar-thumb-zinc-400 scrollbar-track-zinc-300"
           >
             <CommandList
               commands={filteredCommands.filter(
                 (cmd) => cmd.type === "project",
               )}
-              onEdit={handleEditCommand}
               onDelete={handleDeleteCommand}
             />
           </TabsContent>

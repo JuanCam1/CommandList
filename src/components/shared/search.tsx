@@ -8,12 +8,12 @@ interface Props {
 }
 const Search: FC<Props> = ({ searchQuery, setSearchQuery }) => {
   return (
-    <div className="relative w-full md:w-1/3 min-w-[400px]">
+    <div className="relative w-full md:w-1/3 min-w-[400px] border-1 border-neutral-400 rounded-md">
       <SearchIcon className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
       <Input
         type="search"
         placeholder="Buscar..."
-        className="pl-8"
+        className="pl-8 border-none"
         value={searchQuery}
         onChange={(e) => setSearchQuery(e.target.value)}
       />

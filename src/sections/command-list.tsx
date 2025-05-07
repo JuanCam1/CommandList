@@ -6,10 +6,9 @@ import type { FC } from "react";
 
 interface Props {
   commands: CommandI[];
-  onEdit: (command: CommandI) => void;
   onDelete: (id: number) => void;
 }
-const CommandList: FC<Props> = ({ commands, onEdit, onDelete }) => {
+const CommandList: FC<Props> = ({ commands, onDelete }) => {
   if (commands.length === 0) {
     return (
       <Alert>
@@ -28,7 +27,6 @@ const CommandList: FC<Props> = ({ commands, onEdit, onDelete }) => {
         <CommandCard
           key={command.id}
           command={command}
-          onEdit={() => onEdit(command)}
           onDelete={() => onDelete(command.id)}
         />
       ))}

@@ -15,10 +15,9 @@ import CommandUpdate from "./command-update";
 
 interface Props {
   command: CommandI;
-  onEdit: (command: CommandI) => void;
   onDelete: (id: number) => void;
 }
-const CommandCard: FC<Props> = ({ command, onEdit, onDelete }) => {
+const CommandCard: FC<Props> = ({ command, onDelete }) => {
   const [copied, setCopied] = useState(false);
 
   const handleCopy = () => {
@@ -38,13 +37,22 @@ const CommandCard: FC<Props> = ({ command, onEdit, onDelete }) => {
         </div>
       </CardHeader>
       <CardContent>
-        <pre className="dark:bg-zinc-950 bg-zinc-200 p-2 rounded-md overflow-x-auto text-sm scrollbar-thin dark:scrollbar-thumb-zinc-700 dark:scrollbar-track-zinc-900">
+        <pre
+          className="
+          dark:bg-zinc-950 bg-zinc-200/70 p-2 rounded-md overflow-x-auto text-sm
+          scrollbar-thin
+          scrollbar-thumb-zinc-400
+          scrollbar-track-zinc-200
+          dark:scrollbar-thumb-zinc-600
+          dark:scrollbar-track-zinc-900
+        "
+        >
           <code>{command.command}</code>
         </pre>
       </CardContent>
       <CardFooter className="flex justify-between">
         <div className="flex gap-2">
-          <CommandUpdate command={command} onEdit={onEdit} />
+          <CommandUpdate command={command} />
           <CommandDelete id={command.id} onDelete={onDelete} />
         </div>
         <Button

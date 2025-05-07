@@ -1,6 +1,5 @@
 import type { Dispatch, FC, SetStateAction } from "react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../ui/dialog";
-import type { CommandI } from "types/global";
 import CommandForm from "@/sections/command-form";
 
 interface Props {

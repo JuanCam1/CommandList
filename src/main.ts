@@ -26,8 +26,8 @@ const createWindow = () => {
 
     mainWindow.maximize();
 
-    const menu = Menu.buildFromTemplate(template);
-    Menu.setApplicationMenu(menu);
+    // const menu = Menu.buildFromTemplate(template);
+    Menu.setApplicationMenu(null);
 
     mainWindow.webContents.setWindowOpenHandler((details) => {
       shell.openExternal(details.url);
@@ -42,9 +42,9 @@ const createWindow = () => {
       );
     }
 
-    mainWindow.webContents.openDevTools({
-      mode: "detach",
-    });
+    // mainWindow.webContents.openDevTools({
+    //   mode: "detach",
+    // });
 
     if(!fs.existsSync(dataFilePath)) {
       fs.writeFileSync(dataFilePath, JSON.stringify(commandsData, null, 2), "utf-8");
@@ -73,7 +73,6 @@ app.on("activate", () => {
 const readData = ():CommandI[] => {
   if (!fs.existsSync(dataFilePath)) return [];
   const content = fs.readFileSync(dataFilePath, "utf-8");
-  console.log(content);
   return JSON.parse(content);
 };
 

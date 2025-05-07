@@ -67,7 +67,7 @@ const CommandForm: FC<Props> = ({ setIsOpen }) => {
   };
 
   return (
-    <Card className="border-0">
+    <Card className="border-0 dark:bg-neutral-950/40">
       <form onSubmit={handleSubmit}>
         <CardContent className="flex flex-col gap-5">
           <div className="space-y-2">
@@ -115,15 +115,15 @@ const CommandForm: FC<Props> = ({ setIsOpen }) => {
                 value={commandNew.type}
                 onValueChange={handleChangeType}
               >
-                <SelectTrigger className="flex-1 dark:bg-zinc-950 dark:border-neutral-400 cursor-pointer">
+                <SelectTrigger className="flex-1 dark:bg-zinc-950 cursor-pointer">
                   <SelectValue placeholder="Selecciona una categoría" />
                 </SelectTrigger>
-                <SelectContent className="dark:bg-zinc-950">
+                <SelectContent className="dark:bg-zinc-950 bg-white">
                   {typeData.map((type) => (
                     <SelectItem
                       key={type.id}
                       value={type.value}
-                      className="text-white"
+                      className="dark:text-white cursor-pointer"
                     >
                       {type.name}
                     </SelectItem>
@@ -134,7 +134,7 @@ const CommandForm: FC<Props> = ({ setIsOpen }) => {
           </div>
         </CardContent>
         <CardFooter className="flex justify-center mt-6">
-          <Button variant="outline" type="submit">
+          <Button variant="outline" type="submit" className="cursor-pointer">
             Guardar
           </Button>
         </CardFooter>

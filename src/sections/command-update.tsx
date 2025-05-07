@@ -20,31 +20,40 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
+import { typeData } from "@/data/type-data";
+import { useRouter } from "@tanstack/react-router";
 import { Pencil } from "lucide-react";
 import { type ChangeEvent, useState, type FC } from "react";
+import { toast } from "sonner";
 import type { CommandI } from "types/global";
 
 interface Props {
   command: CommandI;
-  onEdit: (command: CommandI) => void;
 }
-const CommandUpdate: FC<Props> = ({ command, onEdit }) => {
+const CommandUpdate: FC<Props> = ({ command }) => {
   const [commandUpdate, setCommandUpdate] = useState(command);
+  const router = useRouter();
 
   const handleChange = (
     evt: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
-    setCommandUpdate({
-      ...commandUpdate,
-      [evt.target.name]: evt.target.value,
-    });
+    const { name, value } = evt.target;
+    setCommandUpdate((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSelectChange = (value: string) => {
-    setCommandUpdate({
-      ...commandUpdate,
-      type: value,
-    });
+    setCommandUpdate((prev) => ({ ...prev, type: value }));
+  };
+
+  const handleUpdate = async () => {
+    try {
+      await window.api.updateData(commandUpdate);
+      toast.success("Comando actualizado correctamente");
+      router.invalidate();
+    } catch (error) {
+      toast.error("Error al actualizar el comando");
+      console.log(error);
+    }
   };
 
   return (
@@ -54,45 +63,49 @@ const CommandUpdate: FC<Props> = ({ command, onEdit }) => {
           <Pencil className="h-4 w-4" />
         </Button>
       </AlertDialogTrigger>
-      <AlertDialogContent>
+      <AlertDialogContent className="border border-neutral-400 bg-white dark:bg-neutral-900 dark:text-white">
         <AlertDialogHeader>
-          <AlertDialogTitle className="dark:text-white">
+          <AlertDialogTitle className="text-center mb-3">
             Actualizar Comando!
           </AlertDialogTitle>
-          <AlertDialogDescription className="flex flex-col gap-3">
+          <AlertDialogDescription className="text-center text-zinc-500 mb-5">
+            Actualiza el comando seleccionado.
+          </AlertDialogDescription>
+          <form className="flex flex-col gap-4">
             <div className="space-y-2">
               <Label htmlFor="title">Título</Label>
               <Input
                 id="title"
+                name="name"
                 value={commandUpdate.name}
                 onChange={handleChange}
-                placeholder="Ej: Actualizar paquetes en Ubuntu"
+                className="dark:bg-zinc-950/40"
                 required
+              />
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="description">Descripción</Label>
+              <Textarea
+                name="description"
+                className="resize-none dark:bg-zinc-950/40"
+                onChange={handleChange}
+                id="description"
+                value={commandUpdate.description}
+                rows={5}
               />
             </div>
 
             <div className="space-y-2">
               <Label htmlFor="command">Comando</Label>
               <Textarea
-                className="font-mono resize-none"
+                className="font-mono resize-none dark:bg-zinc-950/40"
                 onChange={handleChange}
                 id="command"
+                name="command"
                 value={commandUpdate.command}
-                placeholder="Ej: sudo apt update && sudo apt upgrade -y"
                 required
                 rows={3}
-              />
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="description">Descripción (opcional)</Label>
-              <Textarea
-                className="resize-none"
-                onChange={handleChange}
-                id="description"
-                value={commandUpdate.command}
-                placeholder="Describe para qué sirve este comando..."
-                rows={5}
               />
             </div>
 
@@ -103,24 +116,30 @@ const CommandUpdate: FC<Props> = ({ command, onEdit }) => {
                   value={commandUpdate.type}
                   onValueChange={handleSelectChange}
                 >
-                  {" "}
-                  <SelectTrigger className="flex-1">
+                  <SelectTrigger className="flex-1 dark:bg-zinc-950 cursor-pointer">
                     <SelectValue placeholder="Selecciona una categoría" />
                   </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="command">Comando</SelectItem>
-                    <SelectItem value="so">SO</SelectItem>
+                  <SelectContent className="dark:bg-zinc-950 bg-white">
+                    {typeData.map((type) => (
+                      <SelectItem
+                        key={type.id}
+                        value={type.value}
+                        className="dark:text-white cursor-pointer"
+                      >
+                        {type.name}
+                      </SelectItem>
+                    ))}
                   </SelectContent>
                 </Select>
               </div>
             </div>
-          </AlertDialogDescription>
+          </form>
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel className="text-foreground">
             Cancelar
           </AlertDialogCancel>
-          <AlertDialogAction onClick={() => onEdit(commandUpdate)}>
+          <AlertDialogAction onClick={handleUpdate}>
             Actualizar
           </AlertDialogAction>
         </AlertDialogFooter>
