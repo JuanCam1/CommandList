@@ -1,7 +1,7 @@
 {
   "name": "CommandList",
   "version": "1.0.0",
-  "description": "An Electron application with React and TypeScript",
+  "description": "Aplicación de escritorio para gestionar comandos , Guarda, organiza y consulta comandos en un solo lugar.",
   "main": ".vite/build/main.js",
   "homepage": "https://electron-vite.org",
   "scripts": {
@@ -73,12 +73,7 @@
     "vite": "^6.2.6"
   },
   "license": "MIT",
-  "keywords": [
-    "Command",
-    "Electron",
-    "React",
-    "Vite"
-  ],
+  "keywords": ["Command", "Electron", "React", "Vite"],
   "author": {
     "name": "Juan Camilo Rojas Diaz",
     "email": "jcdiaz1998@outlook.es"
